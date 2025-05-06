@@ -213,6 +213,10 @@ const StudentForm = () => {
 
   return (
     <div className="student-form-container">
+      <img src="/images/newunnlogo" alt="Logo"
+       style={{ width: '150px', height: 'auto', display: 'block',
+       margin: '0 auto'}} />
+
       <h1 className="form-title">Student Registration Form</h1>
       
       {apiError && (
@@ -476,6 +480,7 @@ const StudentForm = () => {
               <label htmlFor="permanentAddress">Permanent Address (home)*</label>
               <input
                 type="text"
+                placeholder='No. 12 Arena street'
                 id="permanentAddress"
                 name="permanentAddress"
                 value={formData.permanentAddress}
@@ -649,6 +654,7 @@ const StudentForm = () => {
               <label htmlFor="skills">Do you possess any skills or vocational training? (Optional)</label>
               <textarea
                 id="skills"
+                placeholder='eg. programming, graphic designer, hairstylist'
                 name="skills"
                 value={formData.skills}
                 onChange={handleChange}
@@ -662,6 +668,7 @@ const StudentForm = () => {
               <label htmlFor="extracurricularActivities">Recreational & Extracurricular Activities*</label>
               <textarea
                 id="extracurricularActivities"
+                placeholder='eg. football, dancing, basketball'
                 name="extracurricularActivities"
                 value={formData.extracurricularActivities}
                 onChange={handleChange}
