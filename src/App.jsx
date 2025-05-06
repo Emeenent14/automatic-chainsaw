@@ -473,7 +473,7 @@ const StudentForm = () => {
           
           <div className="form-row">
             <div className="form-group full-width">
-              <label htmlFor="permanentAddress">Permanent Address*</label>
+              <label htmlFor="permanentAddress">Permanent Address (home)*</label>
               <input
                 type="text"
                 id="permanentAddress"
@@ -517,7 +517,7 @@ const StudentForm = () => {
           
           <div className="form-row">
             <div className="form-group full-width">
-              <label htmlFor="residentialAddress">Residential Address*</label>
+              <label htmlFor="residentialAddress">Residential Address (school)*</label>
               <input
                 type="text"
                 id="residentialAddress"
@@ -532,7 +532,7 @@ const StudentForm = () => {
           
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="stateOfResidence">State of Residence*</label>
+              <label htmlFor="stateOfResidence">State of Residence (home)*</label>
               <input
                 type="text"
                 id="stateOfResidence"
@@ -545,7 +545,7 @@ const StudentForm = () => {
             </div>
             
             <div className="form-group">
-              <label htmlFor="lgaOfResidence">Local Government of Residence*</label>
+              <label htmlFor="lgaOfResidence">Local Government of Residence (home)*</label>
               <input
                 type="text"
                 id="lgaOfResidence"
