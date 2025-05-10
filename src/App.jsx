@@ -220,6 +220,7 @@ const StudentForm = () => {
         setApiError('Please correct the errors below and try again.');
       } else {
         setApiError(error.response?.data?.message || 'An error occurred while submitting the form. Please try again.');
+        window.scrollTo(0, 0);
       }
     } finally {
       setSubmitting(false);
@@ -242,6 +243,15 @@ const StudentForm = () => {
        margin: '0 auto'}} />
 
       <h1 className="form-title">Student Registration Form</h1>
+
+      <h3  style={{  height: 'auto', display: 'block',
+        margin: '0px auto', textAlign:'center',fontFamily: 'Arial, sans-serif', fontWeight: '300',}}>
+           Welcome to <b>CBRT Student verification</b> database
+      </h3>
+       
+
+      <h5  style={{  height: 'auto', display: 'block',
+       margin: '6px auto', textAlign:'center'}}>Please fill out the following fields carefully and honestly</h5>
       
       {apiError && (
         <div className="error-message api-error">
