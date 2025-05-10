@@ -546,7 +546,7 @@ const StudentForm = () => {
           
           <div className="form-row">
             <div className="form-group full-width">
-              <label htmlFor="residentialAddress">Residential Address (Off-Campus/Hostel)*</label>
+              <label htmlFor="residentialAddress">Residential Address (Off-Campus/Hostel address)*</label>
               <input
                 type="text"
                 id="residentialAddress"
@@ -678,7 +678,7 @@ const StudentForm = () => {
               <label htmlFor="skills">Do you possess any skills or vocational training? (Optional)</label>
               <textarea
                 id="skills"
-                placeholder='eg. programming, graphic designer, hairstylist'
+                placeholder='eg. programming, graphic design, hairstylist'
                 name="skills"
                 value={formData.skills}
                 onChange={handleChange}
