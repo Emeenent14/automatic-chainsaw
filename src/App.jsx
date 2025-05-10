@@ -128,6 +128,11 @@ const StudentForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Convert camelCase to snake_case
+  const camelToSnakeCase = (str) => {
+    return str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+  };
+
   // Form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -143,17 +148,18 @@ const StudentForm = () => {
     // Create form data for file upload
     const submitFormData = new FormData();
     
-    // Append all form fields
+    // Append all form fields with snake_case conversion
     Object.keys(formData).forEach(key => {
+      const snakeCaseKey = camelToSnakeCase(key);
       if (key === 'passport' && formData[key]) {
-        submitFormData.append(key, formData[key]);
+        submitFormData.append(snakeCaseKey, formData[key]);
       } else if (formData[key] !== null && formData[key] !== undefined) {
-        submitFormData.append(key, formData[key]);
+        submitFormData.append(snakeCaseKey, formData[key]);
       }
     });
     
     try {
-      const response = await axios.post('/api/submit-form/', submitFormData, {
+      const response = await axios.post('http://127.0.0.1:8000/api/submit-form/', submitFormData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -196,7 +202,25 @@ const StudentForm = () => {
       
     } catch (error) {
       console.error('Error submitting form:', error);
-      setApiError(error.response?.data?.message || 'An error occurred while submitting the form. Please try again.');
+      
+      // Enhanced error handling
+      if (error.response?.data?.errors) {
+        // Process field-specific validation errors from Django
+        const backendErrors = error.response.data.errors;
+        const formattedErrors = {};
+        
+        // Convert snake_case error keys to camelCase for the frontend
+        Object.keys(backendErrors).forEach(key => {
+          // Convert snake_case to camelCase
+          const camelCaseKey = key.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+          formattedErrors[camelCaseKey] = backendErrors[key][0]; // Get first error message
+        });
+        
+        setErrors(formattedErrors);
+        setApiError('Please correct the errors below and try again.');
+      } else {
+        setApiError(error.response?.data?.message || 'An error occurred while submitting the form. Please try again.');
+      }
     } finally {
       setSubmitting(false);
     }
@@ -522,7 +546,7 @@ const StudentForm = () => {
           
           <div className="form-row">
             <div className="form-group full-width">
-              <label htmlFor="residentialAddress">Residential Address (school)*</label>
+              <label htmlFor="residentialAddress">Residential Address (Off-Campus/Hostel)*</label>
               <input
                 type="text"
                 id="residentialAddress"
