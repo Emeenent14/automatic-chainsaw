@@ -12,6 +12,7 @@ const StudentForm = () => {
     dateOfBirth: '',
     email: '',
     phoneNumber: '',
+    secondPhoneNumber: '', // New field
     whatsappName: '',
     nationality: '',
     passport: null,
@@ -19,6 +20,8 @@ const StudentForm = () => {
     department: '',
     levelOfStudy: '',
     matricNumber: '',
+    modeOfEntry: '', // New field
+    jambRegNumber: '', // New field
     permanentAddress: '',
     accommodationType: '',
     residentialAddress: '',
@@ -26,6 +29,10 @@ const StudentForm = () => {
     lgaOfResidence: '',
     guardianName: '',
     guardianPhoneNumber: '',
+    nextOfKinName: '', // New field
+    nextOfKinPhone: '', // New field
+    nextOfKinRelationship: '', // New field
+    maritalStatus: '', // New field
     religion: '',
     stateOfOrigin: '',
     localGovernment: '',
@@ -91,13 +98,15 @@ const StudentForm = () => {
     const newErrors = {};
     const requiredFields = [
       'surname', 'firstname', 'sex', 'dateOfBirth', 'email', 
-      'nationality', 'passport', 'faculty', 'department', 
-      'levelOfStudy', 'matricNumber', 'permanentAddress', 
-      'accommodationType', 'residentialAddress', 'stateOfResidence', 
-      'lgaOfResidence', 'guardianName', 'guardianPhoneNumber',
-      'religion', 'stateOfOrigin', 'localGovernment', 'extracurricularActivities'
+      'phoneNumber', 'nationality', 'passport', 'faculty', 
+      'department', 'levelOfStudy', 'matricNumber', 'modeOfEntry',
+      'permanentAddress', 'accommodationType', 'residentialAddress', 
+      'stateOfResidence', 'lgaOfResidence', 'guardianName', 
+      'guardianPhoneNumber', 'nextOfKinName', 'nextOfKinPhone',
+      'nextOfKinRelationship', 'maritalStatus', 'religion', 
+      'stateOfOrigin', 'localGovernment', 'extracurricularActivities',
+      'secondPhoneNumber','jambRegNumber'
     ];
-    
     // Check required fields
     requiredFields.forEach(field => {
       if (!formData[field]) {
@@ -110,15 +119,22 @@ const StudentForm = () => {
       newErrors.email = 'Please enter a valid email address';
     }
     
-    // Validate phone number (digits only)
+      // Validate phone number (digits only)
     if (formData.phoneNumber && !/^\d+$/.test(formData.phoneNumber)) {
       newErrors.phoneNumber = 'Phone number must contain only digits';
     }
-    
+
+    if (formData.secondPhoneNumber && !/^\d+$/.test(formData.secondPhoneNumber)) {
+      newErrors.secondPhoneNumber = 'Phone number must contain only digits';
+    }
+
     if (formData.guardianPhoneNumber && !/^\d+$/.test(formData.guardianPhoneNumber)) {
       newErrors.guardianPhoneNumber = 'Phone number must contain only digits';
     }
-    
+
+    if (formData.nextOfKinPhone && !/^\d+$/.test(formData.nextOfKinPhone)) {
+      newErrors.nextOfKinPhone = 'Phone number must contain only digits';
+    }
     // Validate matric number (must have at least 3 digits)
     if (formData.matricNumber && !/\d{3,}/.test(formData.matricNumber)) {
       newErrors.matricNumber = 'Matric number must contain at least 3 digits';
@@ -238,20 +254,25 @@ const StudentForm = () => {
 
   return (
     <div className="student-form-container">
-      <img src="/images/newunnlogo" alt="Logo"
-       style={{ width: '150px', height: 'auto', display: 'block',
-       margin: '0 auto'}} />
-
-      <h1 className="form-title">Student Registration Form</h1>
-
-      <h3  style={{  height: 'auto', display: 'block',
-        margin: '0px auto', textAlign:'center',fontFamily: 'Arial, sans-serif', fontWeight: '300',}}>
-           Welcome to <b>CBRT Student verification</b> database
-      </h3>
-       
-
-      <h5  style={{  height: 'auto', display: 'block',
-       margin: '6px auto', textAlign:'center'}}>Please fill out the following fields carefully and honestly</h5>
+     {/* logo/title section  */}
+      <div className="header-section">
+        <div className="logo-container">
+          <img 
+            src="/images/newunnlogo" 
+            alt="University Logo"
+            className="logo-image"
+          />
+        </div>
+        <div className="title-container">
+          <h1 className="form-title">Student Registration Form</h1>
+          <div className="form-subtitle">
+            Welcome to <span className="highlight">CBRT Student Verification</span> database
+          </div>
+          <p className="form-instruction">
+            Please fill out the following fields carefully and honestly
+          </p>
+        </div>
+      </div>
       
       {apiError && (
         <div className="error-message api-error">
@@ -435,6 +456,36 @@ const StudentForm = () => {
               {errors.passport && <span className="error-text">{errors.passport}</span>}
             </div>
           </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="secondPhoneNumber">Phone Number 2</label>
+              <input
+                type="text"
+                id="secondPhoneNumber"
+                name="secondPhoneNumber"
+                value={formData.secondPhoneNumber}
+                onChange={handleChange}
+                className={errors.secondPhoneNumber ? 'error' : ''}
+              />
+              {errors.secondPhoneNumber && <span className="error-text">{errors.secondPhoneNumber}</span>}
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="maritalStatus">Marital Status*</label>
+              <select
+                id="maritalStatus"
+                name="maritalStatus"
+                value={formData.maritalStatus}
+                onChange={handleChange}
+                className={errors.maritalStatus ? 'error' : ''}
+              >
+                <option value="">Select Status</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+              </select>
+              {errors.maritalStatus && <span className="error-text">{errors.maritalStatus}</span>}
+            </div>
+          </div>
         </div>
         
         {/* Academic Details Section */}
@@ -501,6 +552,35 @@ const StudentForm = () => {
                 className={errors.matricNumber ? 'error' : ''}
               />
               {errors.matricNumber && <span className="error-text">{errors.matricNumber}</span>}
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="modeOfEntry">Mode of Entry*</label>
+              <select
+                id="modeOfEntry"
+                name="modeOfEntry"
+                value={formData.modeOfEntry}
+                onChange={handleChange}
+                className={errors.modeOfEntry ? 'error' : ''}
+              >
+                <option value="">Select Mode</option>
+                <option value="UTME">UTME</option>
+                <option value="Direct Entry">Direct Entry</option>
+                <option value="Transfer">Transfer</option>
+              </select>
+              {errors.modeOfEntry && <span className="error-text">{errors.modeOfEntry}</span>}
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="jambRegNumber">JAMB Registration Number</label>
+              <input
+                type="text"
+                id="jambRegNumber"
+                name="jambRegNumber"
+                value={formData.jambRegNumber}
+                onChange={handleChange}
+              />
             </div>
           </div>
         </div>
@@ -600,7 +680,7 @@ const StudentForm = () => {
         
         {/* Guardian Information Section */}
         <div className="form-section">
-          <h2>4. Guardian Information</h2>
+          <h2>4. Guardian Information/Next of Kin</h2>
           
           <div className="form-row">
             <div className="form-group">
@@ -627,6 +707,48 @@ const StudentForm = () => {
                 className={errors.guardianPhoneNumber ? 'error' : ''}
               />
               {errors.guardianPhoneNumber && <span className="error-text">{errors.guardianPhoneNumber}</span>}
+            </div>
+          </div>
+            <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="nextOfKinName">Next of Kin Name*</label>
+              <input
+                type="text"
+                id="nextOfKinName"
+                name="nextOfKinName"
+                value={formData.nextOfKinName}
+                onChange={handleChange}
+                className={errors.nextOfKinName ? 'error' : ''}
+              />
+              {errors.nextOfKinName && <span className="error-text">{errors.nextOfKinName}</span>}
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="nextOfKinPhone">Next of Kin Phone Number*</label>
+              <input
+                type="text"
+                id="nextOfKinPhone"
+                name="nextOfKinPhone"
+                value={formData.nextOfKinPhone}
+                onChange={handleChange}
+                className={errors.nextOfKinPhone ? 'error' : ''}
+              />
+              {errors.nextOfKinPhone && <span className="error-text">{errors.nextOfKinPhone}</span>}
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="nextOfKinRelationship">Next of Kin Relationship*</label>
+              <input
+                type="text"
+                id="nextOfKinRelationship"
+                name="nextOfKinRelationship"
+                value={formData.nextOfKinRelationship}
+                onChange={handleChange}
+                className={errors.nextOfKinRelationship ? 'error' : ''}
+              />
+              {errors.nextOfKinRelationship && <span className="error-text">{errors.nextOfKinRelationship}</span>}
             </div>
           </div>
         </div>
