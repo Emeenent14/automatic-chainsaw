@@ -552,3 +552,31 @@ textarea.error {
     font-size: 16px;
   }
 }
+
+.footer {
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 20px 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  border-top: 1px solid #e0e0e0; /* subtle top border */
+  margin-top: 30px; /* space above footer */
+}
+
+.footer p {
+  margin: 0; /* remove default paragraph margin */
+  line-height: 1.5;
+}
+
+.footer a {
+  color: #0066cc; /* classic link blue */
+  text-decoration: none; /* removes underline */
+  font-weight: 600; /* slightly bolder */
+  transition: color 0.2s ease; /* smooth color change */
+}
+
+.footer a:hover {
+  color: #004499; /* darker blue on hover */
+  text-decoration: underline; /* underline on hover */
+}
