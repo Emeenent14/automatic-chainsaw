@@ -175,7 +175,7 @@ const StudentForm = () => {
     });
     
     try {
-      const response = await axios.post('https://automatic-chainsaw-backend.onrender.com', submitFormData, {
+      const response = await axios.post('https://automatic-chainsaw-backend.onrender.com/api/submit-form/', submitFormData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
